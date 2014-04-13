@@ -33,3 +33,22 @@ def first_denomination(kindsOfCoins):
     
 print count_change(100)
 
+
+
+#cc with memoization
+
+def cc_with_memo(amount, kindsOfCoins, memo = {}):
+    
+    if (amount, kindsOfCoins) in memo:
+        return memo[(amount, kindsOfCoins)]
+    
+    if amount == 0:
+        return 1
+    if amount < 0 or kindsOfCoins == 0:
+        return 0
+    
+    memo[(amount, kindsOfCoins)] = cc_with_memo(amount, kindsOfCoins - 1) + \
+         cc_with_memo((amount - first_denomination(kindsOfCoins)), kindsOfCoins)
+
+    return cc_with_memo(amount, kindsOfCoins, memo)
+
